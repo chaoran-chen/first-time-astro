@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchSequenceDetails } from '../../api';
+
+interface Props {
+  accession: string;
+}
+
+const { accession } = Astro.params;
+const data = await fetchSequenceDetails(accession);
+---
+
+<!-- This is entirely server-side rendered -->
+<BaseLayout title={data.genbankAccession}>
+  <h1>{data.genbankAccession}</h1>
+  <ul>
+    <li>Strain: {data.strain}</li>
+    <li>Country: {data.country}</li>
+    <li>Division: {data.division}</li>
+    <li>Sampling date: {data.date}</li>
+    <li>Submission date: {data.dateSubmitted}</li>
+    <li>Host: {data.host}</li>
+  </ul>
+</BaseLayout>
