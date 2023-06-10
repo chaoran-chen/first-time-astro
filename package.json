@@ -5,11 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "start-test-server": "cross-env CONFIG_DIR=./tests/config astro dev --port 3001",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "e2e": "npx playwright test"
   },
   "dependencies": {
     "@astrojs/node": "^5.2.0",
@@ -22,7 +24,9 @@
     "yaml": "^2.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.35.0",
     "@types/node": "^20.2.6",
+    "cross-env": "^7.0.3",
     "prettier": "^2.8.8",
     "prettier-plugin-astro": "^0.10.0"
   }

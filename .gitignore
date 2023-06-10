@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # My favorite editor
 .idea/
+/test-results/
+/playwright-report/
+/playwright/.cache/
