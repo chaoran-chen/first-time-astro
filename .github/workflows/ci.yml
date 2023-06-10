@@ -1,0 +1,54 @@
+name: first-time-astro
+
+on:
+  push:
+  pull_request:
+
+env:
+  DOCKER_IMAGE_NAME: ghcr.io/chaoran-chen/first-time-astro
+
+jobs:
+  linter:
+    name: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci
+      - run: npm run lint
+
+  dockerImage:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set environment variable "BRANCH"
+        run: |
+          echo "BRANCH=$(eval 'echo $GITHUB_REF | sed s/refs\\/heads\\/// | sed s/\\//__/ ')" >> $GITHUB_ENV
+      - name: Build image
+        run: docker build -t new_image .
+      - name: Login to Github Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Add tags and push
+        run: |
+          docker tag new_image ${{ env.DOCKER_IMAGE_NAME }}:br-${{ env.BRANCH }}
+          docker push ${{ env.DOCKER_IMAGE_NAME }}:br-${{ env.BRANCH }}
+      - name: Add "develop" tag and push
+        if: env.BRANCH == 'develop'
+        run: |
+          docker tag new_image ${{ env.DOCKER_IMAGE_NAME }}:develop
+          docker push ${{ env.DOCKER_IMAGE_NAME }}:develop
+      - name: Add "public" tag and push
+        if: env.BRANCH == 'public'
+        run: |
+          docker tag new_image ${{ env.DOCKER_IMAGE_NAME }}:public
+          docker push ${{ env.DOCKER_IMAGE_NAME }}:public
