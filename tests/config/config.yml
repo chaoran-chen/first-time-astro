@@ -39,7 +39,7 @@ schema:
     - name: pangoLineage
       type: pango_lineage
     - name: nextcladePangoLineage
-      type: pangoLineage
+      type: pango_lineage
     - name: nextstrainClade
       type: string
     - name: originatingLab
@@ -49,4 +49,4 @@ schema:
     - name: authors
       type: string
     # ... there are many more derived/QC metrics
-  primaryKey: strain
+  primaryKey: genbankAccession

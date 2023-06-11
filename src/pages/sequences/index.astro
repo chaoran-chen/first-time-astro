@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { PreactSelfFetchingPaginatedSequenceList } from '../../components/PreactSelfFetchingPaginatedSequenceList';
+import { PreactPaginatedSequenceList } from '../../components/PreactPaginatedSequenceList';
 import { fetchNumberSequences } from '../../api';
+import { getConfig } from '../../config';
 
+const config = getConfig();
 const numberSequences = await fetchNumberSequences();
 ---
 
@@ -11,5 +13,5 @@ const numberSequences = await fetchNumberSequences();
   Number sequences: {numberSequences}
 
   <!-- Loading the full sequence list takes time and will be done on the client side -->
-  <div><PreactSelfFetchingPaginatedSequenceList client:load /></div>
+  <div><PreactPaginatedSequenceList client:load config={config} /></div>
 </BaseLayout>

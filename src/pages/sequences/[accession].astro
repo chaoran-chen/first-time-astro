@@ -13,7 +13,7 @@ const config = getConfig();
 ---
 
 <!-- This is entirely server-side rendered -->
-<BaseLayout title={data.genbankAccession}>
+<BaseLayout title={data[config.schema.primaryKey]}>
   <h1 class='font-bold'>{data[config.schema.primaryKey]}</h1>
   <ul>
     {
