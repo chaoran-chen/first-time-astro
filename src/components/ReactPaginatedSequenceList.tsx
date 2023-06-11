@@ -14,10 +14,9 @@ export const ReactPaginatedSequenceList = ({ sequences }: Props) => {
       <button onClick={() => setPage(Math.max(page - 1, 0))}>Previous</button>
       <button onClick={() => setPage(page + 1)}>Next</button>
       <ul>
-        {sequences.slice(offset, offset + 100).map((d) => (
+        {sequences.slice(offset, offset + 100).map(d => (
           <li key={d.genbankAccession}>
-            <a href={`/sequences/${d.genbankAccession}`}>{d.genbankAccession}</a>, {d.strain},{' '}
-            {d.date}
+            <a href={`/sequences/${d.genbankAccession}`}>{d.genbankAccession}</a>, {d.strain}, {d.date}
           </li>
         ))}
       </ul>

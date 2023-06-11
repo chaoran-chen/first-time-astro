@@ -14,7 +14,7 @@ const config = getConfig();
 
 <!-- This is entirely server-side rendered -->
 <BaseLayout title={data.genbankAccession}>
-  <h1 class="font-bold">{data[config.schema.primaryKey]}</h1>
+  <h1 class='font-bold'>{data[config.schema.primaryKey]}</h1>
   <ul>
     {
       config.schema.metadata.map(({ name }) => (

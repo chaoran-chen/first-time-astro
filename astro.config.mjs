@@ -9,6 +9,6 @@ export default defineConfig({
   output: 'server',
   integrations: [preact(), tailwind()],
   adapter: node({
-    mode: 'standalone'
-  })
+    mode: 'standalone',
+  }),
 });
