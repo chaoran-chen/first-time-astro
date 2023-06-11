@@ -3,7 +3,6 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
     "start": "astro dev",
     "start-test-server": "cross-env CONFIG_DIR=./tests/config astro dev --port 3001",
     "build": "astro build",
